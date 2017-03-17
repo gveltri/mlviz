@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <!-- CDNS -->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+    <script
+       src="https://code.jquery.com/jquery-3.1.1.min.js"
+       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+       crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- internal libraries -->
+    <script src="static/OrbitControls.js"></script>
+    <script src="static/plot3D.js"></script>
+    <script src="static/decisionTree.js"></script>
+    <style>
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #333333;
+    color: #EEEEEE;
+    font-family: arial;
+}
+
+h1 {
+    font-weight: 300;
+    letter-spacing: 2px;
+    
+}
+
+div#chart {
+height: 750px;
+width: 750px;
+}
+
+div.tooltip {
+position: absolute;
+text-align: center;
+padding: 5px;
+font: 12px sans-serif;
+color: #000;
+background: lightsteelblue;
+border: 0px;
+border-radius: 8px;
+pointer-events: none;
+}
+
+div#decision-tree {
+height: 750px;
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Decision Tree Visualization</h1>
+      <h5><i>Scikit Learn Iris Dataset</i></h5>
+      <div class="row">
+	<div class="col-md-8">
+	  <div id="chart">
+	  </div>
+	</div>
+	<div class="col-md-4">
+	  <div id="decision-tree">
+	  </div>
+	</div>
+      </div>
+    </div>
+  </body>
+  <script src="static/mlviz.js"></script>
+</html>
