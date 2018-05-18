@@ -47,7 +47,7 @@ decisionTree.prototype.initializeSVG = function() {
 	}
     }
     this.first_node = first_node; // save for later use
-    
+
     var nodes_by_level = {1:
 			  [this.nodes[first_node]]
 			 };
@@ -100,7 +100,7 @@ decisionTree.prototype.initializeSVG = function() {
 		fill     = leaf ?
 		this.target_mapping[node_obj.target][2] :
 		this.axis_mapping[node_obj.feature][2];
-	    
+
 	    var rect = g.append("rect")
 		.attr("id", node_obj.name.split(' ').join('-') )
 		.attr("y", this.level_axes[level] - (this.node_settings.height/2))
@@ -114,7 +114,6 @@ decisionTree.prototype.initializeSVG = function() {
 		.on("mouseover", function(d) {
 		    cur_node = self.nodes[this.id.split('-').join(' ')];
 		    // configure tooltip text
-		    
 
 		    var feature_list = ['impurity'].concat(Object.keys(self.target_mapping));
 		    var tooltip_string = "<b>" + cur_node['show_name']  + "</b><br>"
@@ -190,7 +189,7 @@ decisionTree.prototype.traverseTree = function(data_point) {
 	if (curr_node.threshold == -2) {
 	    clearInterval(interval);
 	}
-	
+
 	if (data_point[curr_node['feature']] <= curr_node['threshold']) {
 	    console.log(curr_node['feature']+ ' ' + data_point[curr_node['feature']] + ' is less than or equal to ' + curr_node['threshold'])
 	    self.activateNode(curr_node.name, self.nodes[curr_node['left']].name)
@@ -203,8 +202,8 @@ decisionTree.prototype.traverseTree = function(data_point) {
 	}
     },this.speed * duration);
 
-    
-};
+}
+
 
 
 decisionTree.prototype.drawLineBetweenNodes  = function(cursor) {
@@ -237,8 +236,6 @@ decisionTree.prototype.activateNode = function(origin, destination) {
     var path        = this.nodes[origin]['_data'][destination]['path'],
 	line_coords = this.nodes[origin]['_data'][destination]['line_coords'],
 	duration    = 1;
-	
-
     //var line_coords = getLine(origin_node, destination_node);
 
     // var path = this.svg.append("path")
@@ -287,7 +284,7 @@ function calculateCoords(node_origin, node_destination) {
 	};
     }
     else if (origin_y == destination_y) {
-	multiplier = destination_x > origin_x ? 1 : -1;
+	      multiplier = destination_x > origin_x ? 1 : -1;
 
 	return {
 	    'origin_x': origin_x + (multiplier) * (parseInt(node_origin.attr("width")/2) ),
@@ -297,24 +294,24 @@ function calculateCoords(node_origin, node_destination) {
 	};
     }
     else {
-	multiplier = destination_x > origin_x ? 1 : -1;
-	var multiplier_y = destination_y > origin_y ? 1 : -1;
+	      multiplier = destination_x > origin_x ? 1 : -1;
+	      var multiplier_y = destination_y > origin_y ? 1 : -1;
 
-	var a = Math.abs(destination_x - origin_x);
-	var b = Math.abs(destination_y - origin_y);
+	      var a = Math.abs(destination_x - origin_x);
+	      var b = Math.abs(destination_y - origin_y);
 
-	var b_1 = parseInt(node_origin.attr("height")) / 2;
-	var a_1 = b_1 / (b / a);
+	      var b_1 = parseInt(node_origin.attr("height")) / 2;
+	      var a_1 = b_1 / (b / a);
 
-	var b_2 = parseInt(node_destination.attr("height")) / 2;
-	var a_2 = b_2 / (b / a)
+	      var b_2 = parseInt(node_destination.attr("height")) / 2;
+	      var a_2 = b_2 / (b / a)
 
-	return {
-	    'origin_x': a_1 * (multiplier) + origin_x,
-	    'origin_y': b_1 * (multiplier_y) + origin_y,
-	    'destination_x': a_2 * (multiplier * -1) + destination_x,
-	    'destination_y': b_2 * (multiplier_y * -1) + destination_y
-	};
+	      return {
+	          'origin_x': a_1 * (multiplier) + origin_x,
+	          'origin_y': b_1 * (multiplier_y) + origin_y,
+	          'destination_x': a_2 * (multiplier * -1) + destination_x,
+	          'destination_y': b_2 * (multiplier_y * -1) + destination_y
+	      };
     }
 }
 
@@ -325,40 +322,30 @@ function getLine(node_source, node_target) {
         target_y = node_target['_data'][node_source.name].y;
 
     if (source_x == target_x) {
-	return [
-	    {'x': source_x, 'y': source_y},
-	    {'x': target_x, 'y': target_y}
-	];
+	      return [
+	          {'x': source_x, 'y': source_y},
+	          {'x': target_x, 'y': target_y}
+	      ];
     }
     else if (target_y == source_y) {
-	return [
-	    {'x': source_x, 'y': source_y},
-	    {'x': target_x, 'y': target_y}
-	];
-    }
-    else {
-
-	var level_diff = Math.abs(node_target.level - node_source.level),
-	    sub_level_diff = Math.abs(node_target.level - node_source.sub_level);
-
-	var multiplier_x = target_x > source_x ? 1 : -1,
-	    multiplier_y = target_y < source_y ? -1 : 1,
-	    multiplier_dist = target_y < source_y ? 10 : 1;
-
-	var _2_x = source_x + multiplier_x * (20 * level_diff),
-	    _2_y = source_y + multiplier_y * (30 * level_diff);
-
-	var _3_x = target_x - multiplier_x * (20 * level_diff),
-	    _3_y = target_y - multiplier_y * (30 * level_diff);
-
-	return [
-	    {'x': source_x, 'y': source_y},
-	    {'x': _2_x, 'y': _2_y},
-	    {'x': _3_x, 'y': _3_y},
-	    {'x': target_x, 'y': target_y}
-	];
+	      return [
+	          {'x': source_x, 'y': source_y},
+	          {'x': target_x, 'y': target_y}
+	      ];
     }
 
+	  var _2_x = source_x,
+	      _2_y = (source_y + target_y)/2;
+
+	  var _3_x = target_x,
+	      _3_y = _2_y = (source_y + target_y)/2;
+
+	  return [
+	      {'x': source_x, 'y': source_y},
+	      {'x': _2_x, 'y': _2_y},
+	      {'x': _3_x, 'y': _3_y},
+	      {'x': target_x, 'y': target_y}
+	  ];
 
 }
 
@@ -366,10 +353,10 @@ function getLine(node_source, node_target) {
 function translateAlong(path) {
     var l = path.getTotalLength();
     return function(d, i, a) {
-    	return function(t) {
-    	    var p = path.getPointAtLength(t * l);
-    	    return "translate(" + p.x + "," + p.y + ")";
-    	};
+    	  return function(t) {
+    	      var p = path.getPointAtLength(t * l);
+    	      return "translate(" + p.x + "," + p.y + ")";
+    	  };
     };
 }
 
@@ -377,10 +364,10 @@ var basis_line = d3.svg.line()
     .tension(0)
     .interpolate("basis")
     .x(function(d,i) {
-	return d.x;
+	      return d.x;
     })
     .y(function(d) {
-	return d.y;
+	      return d.y;
     });
 
 function capitalizeFirstLetter(string) {

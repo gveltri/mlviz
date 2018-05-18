@@ -163,7 +163,7 @@ function init_scene(flower_data, ranges, labels) {
     renderer.domElement.addEventListener('click', function(event) {
 	      mouse.x = ( event.offsetX / width ) * 2 - 1;
 	      mouse.y = - ( event.offsetY / height ) * 2 + 1;
-	      
+
 	      raycaster.setFromCamera(mouse, camera);
 
 	      var intersects = raycaster.intersectObjects(plot.points);
